@@ -3,6 +3,8 @@ import { useFonts } from 'expo-font';
 import { SplashScreen } from 'expo-router';
 import { Stack } from 'expo-router';
 import '../global.css';
+import { GlobalProvider } from '@/lib/global-provider';
+
 export default function RootLayout() {
   const [fontsLoaded] = useFonts({
     'Rubik-Bold': require('../assets/fonts/Rubik-Bold.ttf'),
@@ -23,5 +25,9 @@ export default function RootLayout() {
     return null;
   }
 
-  return <Stack screenOptions={{ headerShown: false }} />;
+  return (
+    <GlobalProvider>
+      <Stack screenOptions={{ headerShown: false }} />
+    </GlobalProvider>
+  );
 }
