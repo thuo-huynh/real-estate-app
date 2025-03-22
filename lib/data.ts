@@ -34,3 +34,15 @@ export const settings = [
     icon: icons.people,
   },
 ];
+
+export const categories = [
+  { title: 'All', category: 'All' },
+  { title: 'Houses', category: 'House' },
+  { title: 'Condos', category: 'Condos' },
+  { title: 'Duplexes', category: 'Duplexes' },
+  { title: 'Studios', category: 'Studios' },
+  { title: 'Villas', category: 'Villa' },
+  { title: 'Apartments', category: 'Apartments' },
+  { title: 'Townhomes', category: 'Townhomes' },
+  { title: 'Others', category: 'Others' },
+];
