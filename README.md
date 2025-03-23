@@ -5,7 +5,12 @@ A modern mobile app for browsing and searching real estate properties built with
 ## Demo
 
 <p align="left">
-  <img src="assets/gif/real-estate.gif" width="300" alt="App Demo" />
+  <img src="assets/gif/z6434721826602_9de994b5f3434d185ff4a752e51d102b.jpg" width="200" alt="App Screenshot 2" />
+  <img src="assets/gif/z6434721839253_cbe0fee95219ace3988859727b903054.jpg" width="200" alt="App Screenshot 4" />
+</p>
+<p align="left">
+  <img src="assets/gif/z6434721829437_2bb9be2c2458394db3f37bc899dc529c.jpg" width="200" alt="App Screenshot 3" />
+  <img src="assets/gif/z6434721818919_4964318284426815c5586fa1b6e4049c.jpg" width="200" alt="App Screenshot 1" />
 </p>
 
 ## Features
