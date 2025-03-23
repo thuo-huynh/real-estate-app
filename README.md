@@ -2,6 +2,14 @@
 
 A modern mobile app for browsing and searching real estate properties built with React Native and Expo.
 
+## Demo
+
+<div align="left">
+  <video src="assets/videos/real-estate.mp4" width="320" controls></video>
+</div>
+
+You can also [download the demo video](assets/videos/real-estate.mp4) directly.
+
 ## Features
 
 - 🏠 Browse featured and recommended properties
