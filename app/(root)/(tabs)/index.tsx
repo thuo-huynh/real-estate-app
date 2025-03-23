@@ -1,22 +1,79 @@
+import { Card, FeaturedCard } from '@/components/Cards';
+import Filters from '@/components/Filters';
+import NoResults from '@/components/NoResults';
 import Search from '@/components/Search';
 import icons from '@/constants/icons';
+import { getLatestProperties, getProperties } from '@/lib/appwrite';
 import { useGlobalContext } from '@/lib/global-provider';
-import { FlatList, Image, SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
-import { FeaturedCard, Card } from '@/components/Cards';
-import Filters from '@/components/Filters';
+import { useAppwrite } from '@/lib/useAppwrite';
+import { router, useLocalSearchParams } from 'expo-router';
+import { useEffect } from 'react';
+import {
+  ActivityIndicator,
+  FlatList,
+  Image,
+  SafeAreaView,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 export default function Index() {
   const { user } = useGlobalContext();
+  const params = useLocalSearchParams<{ query?: string; filter?: string }>();
+
+  const { data: latestProperties, loading: latestPropertiesLoading } = useAppwrite({
+    fn: getLatestProperties,
+  });
+
+  const {
+    data: properties,
+    loading: propertiesLoading,
+    refetch,
+  } = useAppwrite({
+    fn: getProperties,
+    params: {
+      query: params.query!,
+      filter: params.filter!,
+      limit: 20,
+    },
+    skip: !params.query || !params.filter,
+  });
+
+  useEffect(() => {
+    refetch({
+      query: params.query!,
+      filter: params.filter!,
+      limit: 20,
+    });
+  }, [params.query, params.filter]);
+
+  const handleCardPress = (id: string) => router.push(`/properties/${id}`);
 
   return (
     <SafeAreaView className="h-full bg-white">
       <FlatList
-        data={[1, 2, 3, 4]}
+        data={properties}
         numColumns={2}
-        renderItem={() => <Card />}
-        keyExtractor={(item) => item.toString()}
+        renderItem={({ item }) => (
+          <Card
+            item={item}
+            onPress={() => handleCardPress(item.$id)}
+          />
+        )}
+        keyExtractor={(item) => item.$id}
         contentContainerClassName="pb-32"
         columnWrapperClassName="flex gap-5 px-5"
         showsVerticalScrollIndicator={false}
+        ListEmptyComponent={
+          propertiesLoading ? (
+            <ActivityIndicator
+              size="large"
+              className="text-primary-300 mt-5"
+            />
+          ) : (
+            <NoResults />
+          )
+        }
         ListHeaderComponent={
           <View className="px-5">
             <View className="flex flex-row justify-between items-center mt-5">
@@ -43,14 +100,28 @@ export default function Index() {
                   <Text className="text-base font-rubik-bold text-primary-300">See all</Text>
                 </TouchableOpacity>
               </View>
-              <FlatList
-                data={[1, 2, 3, 4]}
-                renderItem={() => <FeaturedCard />}
-                keyExtractor={(item) => item.toString()}
-                contentContainerClassName="flex flex-row gap-5 mt-5"
-                horizontal
-                showsHorizontalScrollIndicator={false}
-              />
+              {latestPropertiesLoading ? (
+                <ActivityIndicator
+                  size="large"
+                  className="text-primary-300"
+                />
+              ) : !latestProperties || latestProperties.length === 0 ? (
+                <NoResults />
+              ) : (
+                <FlatList
+                  data={latestProperties}
+                  renderItem={({ item }) => (
+                    <FeaturedCard
+                      item={item}
+                      onPress={() => handleCardPress(item.$id)}
+                    />
+                  )}
+                  keyExtractor={(item) => item.$id}
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                  contentContainerClassName="flex gap-5 mt-5"
+                />
+              )}
             </View>
 
             <View className="flex flex-row items-center justify-between">

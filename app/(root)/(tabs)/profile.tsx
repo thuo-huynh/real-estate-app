@@ -1,6 +1,6 @@
+import { settings } from '@/constants/data';
 import icons from '@/constants/icons';
 import { logout } from '@/lib/appwrite';
-import { settings } from '@/lib/data';
 import { useGlobalContext } from '@/lib/global-provider';
 import React from 'react';
 import {
