@@ -4,11 +4,9 @@ A modern mobile app for browsing and searching real estate properties built with
 
 ## Demo
 
-<div align="left">
-  <video src="assets/videos/real-estate.mp4" width="320" controls></video>
-</div>
-
-You can also [download the demo video](assets/videos/real-estate.mp4) directly.
+<p align="left">
+  <img src="assets/gif/real-estate.gif" width="300" alt="App Demo" />
+</p>
 
 ## Features
 
